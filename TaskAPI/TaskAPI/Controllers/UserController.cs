@@ -11,9 +11,9 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserCollectionService _userCollectionService;
+        private readonly IUserService _userCollectionService;
 
-        public UserController(IUserCollectionService userCollectionService)
+        public UserController(IUserService userCollectionService)
         {
             _userCollectionService = userCollectionService ?? throw new ArgumentNullException(nameof(userCollectionService));
         }
@@ -25,7 +25,7 @@ namespace TaskAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            List<User> users = await _userCollectionService.GetAll();
+            List<User> users = _userCollectionService.GetAll();
             return Ok(users);
         }
 
@@ -37,7 +37,7 @@ namespace TaskAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
-            await _userCollectionService.Create(user);
+            _userCollectionService.Create(user);
             return Ok(user);
         }
 

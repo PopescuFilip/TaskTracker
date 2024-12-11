@@ -1,9 +1,7 @@
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using TaskAPI;
-using TaskAPI.Models;
+using TaskAPI.Db;
 using TaskAPI.Services;
-using TaskAPI.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +19,10 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddSingleton<ITaskCollectionService, TaskCollectionService>();
-builder.Services.AddSingleton<IUserCollectionService, UserCollectionService>();
+builder.Services.AddSingleton<TaskTrackerDbContextFactory>();
 
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection(nameof(MongoDBSettings)));
-builder.Services.AddSingleton<IMongoDBSettings>(sp => sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
+builder.Services.AddSingleton<ITaskService, TaskCollectionService>();
+builder.Services.AddSingleton<ITaskService, TaskCollectionService>();
 
 builder.Services.AddCors(options =>
 {
@@ -39,7 +36,6 @@ builder.Services.AddCors(options =>
                               });
 });
 
-//builder.Services.AddSignalR();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -48,26 +44,16 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    options.IdleTimeout = TimeSpan.FromMinutes(3); 
+    options.IdleTimeout = TimeSpan.FromMinutes(3);
 });
 
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");
 
-//app.UseWebSockets(new WebSocketOptions
-//{
-//    KeepAliveInterval = TimeSpan.Zero,
-//});
-
 app.UseRouting();
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapHub<NotificationsHub>("/hub/notifications");
-//});
 
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

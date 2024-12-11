@@ -6,9 +6,8 @@
         InProgress,
         Completed
     }
-    public class TaskModel
+    public class TaskModel : Entity
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string AssignedTo { get; set; }
