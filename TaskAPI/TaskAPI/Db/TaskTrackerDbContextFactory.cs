@@ -5,7 +5,7 @@ namespace TaskAPI.Db
 {
     public class TaskTrackerDbContextFactory : IDesignTimeDbContextFactory<TaskTrackerDbContext>
     {
-        private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=SupermarketDb;Trusted_Connection=True;";
+        private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=TaskTrackerDb;Trusted_Connection=True;";
         public TaskTrackerDbContext CreateDbContext(string[]? args = null)
         {
             var options = new DbContextOptionsBuilder<TaskTrackerDbContext>();
