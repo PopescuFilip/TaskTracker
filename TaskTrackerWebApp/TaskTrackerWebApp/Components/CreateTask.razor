@@ -1,0 +1,43 @@
+﻿
+
+@if (CreateTaskModalIsVisible)
+{
+    <div class="modal-backdrop fade show"></div>
+
+    <div class="modal fade show" style="display:block; z-index: 1051;" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Task</h5>
+                    <button type="button" class="btn-close" @onclick="CloseCreateTaskModal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-container">
+                        <form @onsubmit="HandleSubmit">
+                            
+                            <div class="form-group">
+                                <label for="title">Task Title</label>
+                                <input type="text" id="title" class="form-control" @bind="TaskBeingCreated.Title" placeholder="Enter task title" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" class="form-control" @bind="TaskBeingCreated.Description" placeholder="Enter task description"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assignedTo">Assigned To</label>
+                                <input type="text" id="assignedTo" class="form-control" @bind="TaskBeingCreated.AssignedTo" placeholder="Enter assignee name" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create Task</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseCreateTaskModal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

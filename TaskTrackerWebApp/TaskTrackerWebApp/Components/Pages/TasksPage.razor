@@ -1,0 +1,47 @@
+﻿@page "/weather"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (Tasks == null)
+{
+    <p><em>Loading tasks...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned to</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Tasks)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.AssignedTo</td>
+                    <td>@task.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary mb-3" @onclick="ShowCreateTaskModal">Create New Task</button>
+
+@if (IsCreateTaskModalVisible)
+{
+    <CreateTask CreateTaskModalIsVisible="@IsCreateTaskModalVisible" OnVisibilityChanged="HandleCreateModelVisibility" OnTaskCreated="HandleTaskCreated" />
+}
+
+
