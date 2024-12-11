@@ -21,8 +21,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSingleton<TaskTrackerDbContextFactory>();
 
-builder.Services.AddSingleton<ITaskService, TaskCollectionService>();
-builder.Services.AddSingleton<ITaskService, TaskCollectionService>();
+builder.Services.AddSingleton<BaseUserService, UserService>();
+builder.Services.AddSingleton<BaseTaskService, TaskService>();
 
 builder.Services.AddCors(options =>
 {

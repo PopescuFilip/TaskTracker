@@ -11,11 +11,11 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userCollectionService;
+        private readonly BaseUserService _userService;
 
-        public UserController(IUserService userCollectionService)
+        public UserController(BaseUserService userService)
         {
-            _userCollectionService = userCollectionService ?? throw new ArgumentNullException(nameof(userCollectionService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace TaskAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            List<User> users = _userCollectionService.GetAll();
+            List<User> users = _userService.GetAll();
             return Ok(users);
         }
 
@@ -37,7 +37,7 @@ namespace TaskAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
-            _userCollectionService.Create(user);
+            _userService.Create(user);
             return Ok(user);
         }
 
@@ -50,7 +50,7 @@ namespace TaskAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] User user)
         {
-            await _userCollectionService.Update(id, user);
+            _userService.Update(id, user);
             return Ok(user);
         }
 
@@ -62,7 +62,7 @@ namespace TaskAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            bool deleted = await _userCollectionService.Delete(id);
+            bool deleted = _userService.Delete(id);
 
             if (!deleted)
                 return NotFound();
@@ -78,7 +78,7 @@ namespace TaskAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
-            User user = await _userCollectionService.Get(id);
+            var user = _userService.Get(id);
 
             if (user == null)
                 return NotFound();
@@ -98,7 +98,7 @@ namespace TaskAPI.Controllers
                 return BadRequest("Username and password are required.");
             }
 
-            var userId = await _userCollectionService.Check(username, password, HttpContext);
+            var userId = _userService.Check(username, password, HttpContext);
 
             if (string.IsNullOrEmpty(userId))
             {

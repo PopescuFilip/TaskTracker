@@ -11,13 +11,13 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class TaskController : ControllerBase
     {
-        ITaskService _taskCollectionService;
-        IUserService _userCollectionService;
+        BaseTaskService _taskCollectionService;
+        BaseUserService _userService;
 
-        public TaskController(ITaskService taskCollectionService, IUserService userCollectionService)
+        public TaskController(BaseTaskService taskCollectionService, BaseUserService userService)
         {
-            _taskCollectionService = taskCollectionService ?? throw new ArgumentNullException(nameof(TaskCollectionService));
-            _userCollectionService = userCollectionService ?? throw new ArgumentNullException(nameof(UserCollectionService));
+            _taskCollectionService = taskCollectionService ?? throw new ArgumentNullException(nameof(TaskService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(UserService));
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace TaskAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
-            List<TaskModel> tasks = await _taskCollectionService.GetAll();
+            List<TaskModel> tasks = _taskCollectionService.GetAll();
             return Ok(tasks);
         }
 
@@ -40,7 +40,7 @@ namespace TaskAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTask([FromBody] TaskModel task)
         {
-            await _taskCollectionService.Create(task);
+            _taskCollectionService.Create(task);
             return Ok(task);
         }
 
@@ -52,7 +52,7 @@ namespace TaskAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateTask([FromBody] TaskModel task)
         {
-            await _taskCollectionService.Update(task.Id, task);
+            _taskCollectionService.Update(task.Id, task);
             return Ok(task);
         }
 
@@ -64,7 +64,7 @@ namespace TaskAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            bool deleted = await _taskCollectionService.Delete(id);
+            bool deleted = _taskCollectionService.Delete(id);
 
             if (!deleted)
                 return NotFound();
