@@ -22,3 +22,7 @@ As a user, I want to create, manage, and track tasks so that I can stay organize
 - **Backend:** Built with ASP.NET WebAPI.
 - **Database:** Utilizes Entity Framework Core with SQL Server.
 - **Frontend:** Developed using Blazor for a seamless and responsive user experience.
+
+## Deploying backend
+
+Before running the API for the first time, to create the database, it is necessary to run the "update-database" command from Package Manager Console.
