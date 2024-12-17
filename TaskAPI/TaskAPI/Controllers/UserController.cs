@@ -11,9 +11,9 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly BaseUserService _userService;
+        private readonly IUserService _userService;
 
-        public UserController(BaseUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }

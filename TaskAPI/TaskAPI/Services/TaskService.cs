@@ -4,13 +4,13 @@ using TaskAPI.Models;
 
 namespace TaskAPI.Services
 {
-    public class TaskService : BaseTaskService
+    public class TaskService : EntityService<TaskModel>, ITaskService
     {
         public TaskService(TaskTrackerDbContextFactory dbContextFactory) :
             base(dbContextFactory)
         {}
 
-        public override List<TaskModel> GetTasksByStatus(string status)
+        public List<TaskModel> GetTasksByStatus(string status)
         {
             using var context = _dBContextFactory.CreateDbContext();
             return context.Set<TaskModel>().Where(taskModel => taskModel.Status == status).ToList();

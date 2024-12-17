@@ -4,13 +4,13 @@ using TaskAPI.Models;
 
 namespace TaskAPI.Services
 {
-    public class UserService : BaseUserService
+    public class UserService : EntityService<User>, IUserService
     {
         public UserService(TaskTrackerDbContextFactory dbContextFactory) :
             base(dbContextFactory)
         {}
 
-        public override string Check(string username, string password, HttpContext context)
+        public string Check(string username, string password, HttpContext context)
         {
             using var dbContext = _dBContextFactory.CreateDbContext();
             var user = dbContext.Set<User>().FirstOrDefault(u => u.Name == username && u.Password == password);
@@ -23,7 +23,7 @@ namespace TaskAPI.Services
             return string.Empty;
         }
 
-        public override bool Check(string id)
+        public bool Check(string id)
         {
             if (!Guid.TryParse(id, out Guid userGuid))
                 return false;

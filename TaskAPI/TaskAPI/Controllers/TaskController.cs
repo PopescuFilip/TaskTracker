@@ -11,10 +11,10 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class TaskController : ControllerBase
     {
-        BaseTaskService _taskCollectionService;
-        BaseUserService _userService;
+        private readonly ITaskService _taskCollectionService;
+        private readonly IUserService _userService;
 
-        public TaskController(BaseTaskService taskCollectionService, BaseUserService userService)
+        public TaskController(ITaskService taskCollectionService, IUserService userService)
         {
             _taskCollectionService = taskCollectionService ?? throw new ArgumentNullException(nameof(TaskService));
             _userService = userService ?? throw new ArgumentNullException(nameof(UserService));
