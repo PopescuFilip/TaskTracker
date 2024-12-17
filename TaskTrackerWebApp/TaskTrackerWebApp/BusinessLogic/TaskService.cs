@@ -20,7 +20,7 @@ namespace TaskTrackerWebApp.BusinessLogic
 
         public async Task<List<TaskModel>> GetAll()
         {
-            using var client = new HttpClient(GetHttpHandler());
+            using var client = new HttpClient();
             var response = await client.GetAsync(BaseUrl);
             var responseString = await response.Content.ReadAsStringAsync();
             var tasks = JsonSerializer.Deserialize<List<TaskModel>>(responseString, _serializerOptions);
@@ -34,7 +34,7 @@ namespace TaskTrackerWebApp.BusinessLogic
 
         public async Task Post(TaskModel model)
         {
-            using var client = new HttpClient(GetHttpHandler());
+            using var client = new HttpClient();
             var taskJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(taskJson, Encoding.UTF8, "application/json");
 
@@ -43,7 +43,7 @@ namespace TaskTrackerWebApp.BusinessLogic
 
         public async Task Update(Guid id, TaskModel model)
         {
-            using var client = new HttpClient(GetHttpHandler());
+            using var client = new HttpClient();
             var taskJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(taskJson, Encoding.UTF8, "application/json");
 
@@ -52,37 +52,13 @@ namespace TaskTrackerWebApp.BusinessLogic
 
         public async Task Delete(Guid id)
         {
-            using var client = new HttpClient(GetHttpHandler());
+            using var client = new HttpClient();
             var response = await client.DeleteAsync($"{BaseUrl}/{id}");
         }
 
         public Task<List<TaskModel>> GetTasksByStatus(string status)
         {
             throw new NotImplementedException();
-        }
-
-        private static HttpClientHandler GetHttpHandler()
-        {
-            return new()
-            {
-                UseCookies = true,
-                UseDefaultCredentials = true,
-                CookieContainer = GetCookies()
-            };
-        }
-
-        private static CookieContainer GetCookies()
-        {
-            var cookieJar = new CookieContainer();
-            var cookie = new Cookie("id", State.UserId)
-            {
-                Domain = "yourdomain.com",
-                Path = "/",
-                Secure = true
-            };
-            cookieJar.Add(cookie);
-            
-            return cookieJar;
         }
     }
 

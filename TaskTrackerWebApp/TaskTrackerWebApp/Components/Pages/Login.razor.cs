@@ -12,7 +12,7 @@ namespace TaskTrackerWebApp.Components.Pages
         {
             var (username, password) = loginInfo;
             var userId = await UserService.Check(username, password);
-            
+
             if (Guid.TryParse(userId, out _))
             {
                 State.UserId = userId;
