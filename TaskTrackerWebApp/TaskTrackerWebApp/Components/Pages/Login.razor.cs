@@ -16,6 +16,7 @@ namespace TaskTrackerWebApp.Components.Pages
             if (Guid.TryParse(userId, out _))
             {
                 State.UserId = userId;
+                AuthenticationManager.IsLoggedIn = true;
                 Console.WriteLine("succesful login");
             }
         }

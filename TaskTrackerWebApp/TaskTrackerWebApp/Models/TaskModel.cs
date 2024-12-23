@@ -5,7 +5,7 @@
         private const string ToDo = "To do";
         private const string InProgress = "In progress";
         private const string Completed = "Completed";
-        
+
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
