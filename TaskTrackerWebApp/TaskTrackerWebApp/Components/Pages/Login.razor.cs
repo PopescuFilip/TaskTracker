@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 using TaskTrackerWebApp.BusinessLogic;
+using TaskTrackerWebApp.ViewModels;
 
 namespace TaskTrackerWebApp.Components.Pages
 {
@@ -16,9 +17,13 @@ namespace TaskTrackerWebApp.Components.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        public async Task HandleLogin((string, string) loginInfo)
+        [SupplyParameterFromForm]
+        public LoginViewModel Model { get; set; } = new();
+
+        public async Task Authenticate()
         {
-            var (username, password) = loginInfo;
+            var username = Model.Username;
+            var password = Model.Password;
             var userId = await UserService.Check(username, password);
 
             if (!Guid.TryParse(userId, out _))
