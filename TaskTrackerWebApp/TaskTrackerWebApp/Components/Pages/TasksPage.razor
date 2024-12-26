@@ -1,5 +1,7 @@
 ﻿@page "/tasks"
+@using Microsoft.AspNetCore.Authorization
 @attribute [StreamRendering]
+@attribute [Authorize]
 @rendermode InteractiveServer
 
 <PageTitle>Tasks</PageTitle>

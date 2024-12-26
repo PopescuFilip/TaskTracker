@@ -17,6 +17,8 @@ namespace TaskTrackerWebApp.Components.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        private bool InvalidUsernameOrPassword { get; set; }
+
         [SupplyParameterFromForm]
         public LoginViewModel Model { get; set; } = new();
 
@@ -27,7 +29,10 @@ namespace TaskTrackerWebApp.Components.Pages
             var userId = await UserService.Check(username, password);
 
             if (!Guid.TryParse(userId, out _))
+            {
+                InvalidUsernameOrPassword = true;
                 return;
+            }
 
             var claims = new List<Claim>
             {
