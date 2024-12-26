@@ -20,16 +20,12 @@
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="tasks">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Tasks
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="login">
-                <span class="bi bi-person-circle" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
+        <AuthorizeView Roles="user">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="tasks">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Tasks
+                </NavLink>
+            </div>
+        </AuthorizeView>
     </nav>
 </div>
