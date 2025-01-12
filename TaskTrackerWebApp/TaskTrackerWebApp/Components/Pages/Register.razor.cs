@@ -34,7 +34,7 @@ namespace TaskTrackerWebApp.Components.Pages
             var succesfulRegister = await UserService.Post(newUser);
 
             if (succesfulRegister)
-                NavigationManager.NavigateTo(Constants.LoginPage);
+                NavigationManager.NavigateTo(TaskTrackerPages.Login);
             else
                 NotAvailableUsername = true;
         }

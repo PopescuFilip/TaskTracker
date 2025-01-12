@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
+using TaskTrackerWebApp.BusinessLogic;
 
 namespace TaskTrackerWebApp.Components.Pages
 {
@@ -18,7 +19,7 @@ namespace TaskTrackerWebApp.Components.Pages
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 await HttpContext.SignOutAsync();
-                NavigationManager.NavigateTo("/logout", true);
+                NavigationManager.NavigateTo(TaskTrackerPages.Logout, true);
             }
         }
     }

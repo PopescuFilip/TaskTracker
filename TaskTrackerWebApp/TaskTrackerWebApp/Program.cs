@@ -12,8 +12,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.Cookie.Name = "auth-token";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
-        options.LoginPath = "/login";
-        options.AccessDeniedPath = "/access-denied";
+        options.LoginPath = TaskTrackerPages.Login;
+        options.AccessDeniedPath = TaskTrackerPages.AccesDenied;
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
