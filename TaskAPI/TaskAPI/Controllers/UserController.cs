@@ -37,7 +37,8 @@ namespace TaskAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
-            _userService.Create(user);
+            if (!_userService.Create(user))
+                return BadRequest("could not create user");
             return Ok(user);
         }
 

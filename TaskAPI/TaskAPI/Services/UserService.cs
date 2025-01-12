@@ -10,6 +10,15 @@ namespace TaskAPI.Services
             base(dbContextFactory)
         {}
 
+        public override bool Create(User model)
+        {
+            using var context = _dBContextFactory.CreateDbContext();
+            if (context.Set<User>().Where(u => u.Name == model.Name).Any())
+                return false;
+
+            return base.Create(model);
+        }
+
         public string Check(string username, string password, HttpContext context)
         {
             using var dbContext = _dBContextFactory.CreateDbContext();
