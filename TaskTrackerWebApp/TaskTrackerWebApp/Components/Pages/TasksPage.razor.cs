@@ -39,5 +39,10 @@ namespace TaskTrackerWebApp.Components.Pages
 		{
 			IsCreateTaskModalVisible = true;
 		}
+
+        private void OnRowSelect()
+        {
+
+        }
     }
 }

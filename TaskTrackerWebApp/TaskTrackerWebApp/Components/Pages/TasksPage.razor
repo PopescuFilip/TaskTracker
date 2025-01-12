@@ -12,38 +12,28 @@
 
 @if (Tasks == null)
 {
-    <p><em>Loading tasks...</em></p>
+	<p><em>Loading tasks...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Assigned to</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var task in Tasks)
-            {
-                <tr>
-                    <td>@task.Title</td>
-                    <td>@task.Description</td>
-                    <td>@task.AssignedTo</td>
-                    <td>@task.Status</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<RadzenDataGrid Data="@Tasks" TItem="TaskModel" RowSelect="OnRowSelect" AllowFiltering="true" AllowColumnResize="true"
+		AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PageSize="5"
+		AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+		ColumnWidth="300px">
+		<Columns>
+			<RadzenDataGridColumn TItem="TaskModel" Property="Title" Title="Title" />
+			<RadzenDataGridColumn TItem="TaskModel" Property="Description" Title="Description" />
+			<RadzenDataGridColumn TItem="TaskModel" Property="AssignedTo" Title="Assigned to" />
+			<RadzenDataGridColumn TItem="TaskModel" Property="Status" Title="Status" />
+		</Columns>
+	</RadzenDataGrid>
 }
 
 <button class="btn btn-primary mb-3" @onclick="ShowCreateTaskModal">Create New Task</button>
 
 @if (IsCreateTaskModalVisible)
 {
-    <CreateTask CreateTaskModalIsVisible="@IsCreateTaskModalVisible" OnVisibilityChanged="HandleCreateModelVisibility" OnTaskCreated="HandleTaskCreated" />
+	<CreateTask CreateTaskModalIsVisible="@IsCreateTaskModalVisible" OnVisibilityChanged="HandleCreateModelVisibility" OnTaskCreated="HandleTaskCreated" />
 }
 
 
