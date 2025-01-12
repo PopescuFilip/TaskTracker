@@ -39,13 +39,15 @@ namespace TaskTrackerWebApp.BusinessLogic
             return null;
         }
 
-        public async Task Post(User model)
+        public async Task<bool> Post(User model)
         {
             using var client = new HttpClient();
             var userJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(userJson, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(BaseUrl, content);
+
+            return response.IsSuccessStatusCode;
         }
 
         public async Task Update(Guid id, User model)
@@ -79,7 +81,7 @@ namespace TaskTrackerWebApp.BusinessLogic
                 "application/json");
 
             var response = await client.PostAsync($"{BaseUrl}/login", content);
-            
+
             return await response.Content.ReadAsStringAsync();
         }
 

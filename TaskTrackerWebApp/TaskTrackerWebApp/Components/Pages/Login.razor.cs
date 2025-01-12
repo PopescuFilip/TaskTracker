@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 using TaskTrackerWebApp.BusinessLogic;
+using TaskTrackerWebApp.Models;
 using TaskTrackerWebApp.ViewModels;
 
 namespace TaskTrackerWebApp.Components.Pages
@@ -34,6 +35,13 @@ namespace TaskTrackerWebApp.Components.Pages
                 return;
             }
 
+            await SignIn(username);
+
+            Console.WriteLine("succesful login");
+        }
+
+        private async Task SignIn(string username)
+        {
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Name, username),
@@ -44,9 +52,6 @@ namespace TaskTrackerWebApp.Components.Pages
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(principal);
             NavigationManager.NavigateTo("/");
-
-            Console.WriteLine("succesful login");
-
         }
     }
 }

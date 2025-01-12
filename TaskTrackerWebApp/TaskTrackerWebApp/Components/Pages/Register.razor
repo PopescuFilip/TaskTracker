@@ -1,13 +1,13 @@
-﻿@page "/login"
+﻿@page "/register"
 
 <div class="row">
 	<div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
-		<EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm">
+		<EditForm Model="@Model" OnValidSubmit="RegisterAccount" FormName="RegisterForm">
 
 			<DataAnnotationsValidator />
 
 			<div class="mb-3 text-center flex-column">
-				<h3>LOGIN</h3>
+				<h3>REGISTER</h3>
 			</div>
 
 			<div class="mb-3">
@@ -26,16 +26,15 @@
 				<span class="text-danger"></span>
 			</div>
 
-			@if (InvalidUsernameOrPassword)
+			@if (NotAvailableUsername)
 			{
 				<div class="mb-3 text-center">
-					<span class="text-danger">Invalid username or password. Please try again.</span>
+					<span class="text-danger">Username is not available</span>
 				</div>
 			}
 
 			<div class="mb-3 d-grid gap-2">
-				<button type="submit" class="btn btn-primary">Login</button>
-				<a href="/register" class="btn btn-secondary">Register</a>
+				<button type="submit" class="btn btn-primary">Register</button>
 			</div>
 
 		</EditForm>

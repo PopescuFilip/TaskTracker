@@ -32,13 +32,14 @@ namespace TaskTrackerWebApp.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public async Task Post(TaskModel model)
+        public async Task<bool> Post(TaskModel model)
         {
             using var client = new HttpClient();
             var taskJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(taskJson, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(BaseUrl, content);
+            return response.IsSuccessStatusCode;
         }
 
         public async Task Update(Guid id, TaskModel model)
