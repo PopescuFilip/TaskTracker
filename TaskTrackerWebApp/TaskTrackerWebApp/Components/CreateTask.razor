@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <div class="form-container">
                         <form @onsubmit="HandleSubmit">
-                            
+
                             <div class="form-group">
                                 <label for="title">Task Title</label>
                                 <input type="text" id="title" class="form-control" @bind="TaskBeingCreated.Title" placeholder="Enter task title" />
@@ -34,6 +34,11 @@
                         </form>
                     </div>
                 </div>
+                @if (showErrorMessage)
+                {
+                    <p class="error-message">Something went wrong</p>
+                }
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @onclick="CloseCreateTaskModal">Close</button>
                 </div>

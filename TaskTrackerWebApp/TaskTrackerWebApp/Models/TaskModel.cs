@@ -2,15 +2,15 @@
 {
     public class TaskModel
     {
-        private const string ToDo = "To do";
-        private const string InProgress = "In progress";
-        private const string Completed = "Completed";
+        public const string ToDo = "To do";
+        public const string InProgress = "In progress";
+        public const string Completed = "Completed";
 
         public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string AssignedTo { get; set; }
-        public string Status { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string AssignedTo { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
 
         public TaskModel()
         {

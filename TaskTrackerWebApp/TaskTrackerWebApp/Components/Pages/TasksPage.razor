@@ -16,17 +16,62 @@
 }
 else
 {
-	<RadzenDataGrid Data="@Tasks" TItem="TaskModel" RowSelect="OnRowSelect" AllowFiltering="true" AllowColumnResize="true"
-		AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PageSize="5"
-		AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
-		ColumnWidth="300px">
+	<style>
+		.rz-grid-table {
+			width: unset;
+		}
+	</style>
+	<RadzenDataGrid @ref="@taskGrid" Data="@Tasks" TItem="TaskModel" RowSelect="OnRowSelect" AllowFiltering="true" AllowColumnResize="true"
+					AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PageSize="5"
+					AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow"
+					ColumnWidth="300px">
 		<Columns>
-			<RadzenDataGridColumn TItem="TaskModel" Property="Title" Title="Title" />
-			<RadzenDataGridColumn TItem="TaskModel" Property="Description" Title="Description" />
-			<RadzenDataGridColumn TItem="TaskModel" Property="AssignedTo" Title="Assigned to" />
-			<RadzenDataGridColumn TItem="TaskModel" Property="Status" Title="Status" />
+			<RadzenDataGridColumn TItem="TaskModel" Property="Title" Title="Title">
+				<Template>
+					@context.Title
+				</Template>
+				<EditTemplate>
+					<RadzenTextBox @bind-Value="@context.Title" />
+				</EditTemplate>
+			</RadzenDataGridColumn>
+			<RadzenDataGridColumn TItem="TaskModel" Property="Description" Title="Description">
+				<Template>
+					@context.Description
+				</Template>
+				<EditTemplate>
+					<RadzenTextBox @bind-Value="@context.Description" />
+				</EditTemplate>
+			</RadzenDataGridColumn>
+			<RadzenDataGridColumn TItem="TaskModel" Property="AssignedTo" Title="Assigned to">
+				<Template>
+					@context.AssignedTo
+				</Template>
+				<EditTemplate>
+					<RadzenTextBox @bind-Value="@context.AssignedTo" />
+				</EditTemplate>
+			</RadzenDataGridColumn>
+			<RadzenDataGridColumn TItem="TaskModel" Property="Status" Title="Status">
+				<Template>
+					@context.Status
+				</Template>
+				<EditTemplate>
+					<RadzenDropDown TValue="string" @bind-Value="@context.Status" Data="@statusValues"/>
+				</EditTemplate>
+			</RadzenDataGridColumn>
+			<RadzenDataGridColumn Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Frozen="true" FrozenPosition="FrozenColumnPosition.Right">
+				<Template>
+					<RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(args => EditRow(context))" @onclick:stopPropagation="true" />
+					<RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(args => DeleteRow(context))" @onclick:stopPropagation="true" />
+				</Template>
+				<EditTemplate>
+					<RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(context))" aria-label="Save" />
+					<RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@((args) => CancelEdit(context))" aria-label="Cancel" />
+					<RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(args => DeleteRow(context))" aria-label="Delete" />
+				</EditTemplate>
+			</RadzenDataGridColumn>
 		</Columns>
 	</RadzenDataGrid>
+
 }
 
 <button class="btn btn-primary mb-3" @onclick="ShowCreateTaskModal">Create New Task</button>

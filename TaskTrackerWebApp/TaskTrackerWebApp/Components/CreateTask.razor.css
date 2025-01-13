@@ -4,5 +4,10 @@
 }
 
 .modal {
-    z-index: 1051; 
+    z-index: 1051;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
 }

@@ -48,7 +48,7 @@ namespace TaskTrackerWebApp.BusinessLogic
             var taskJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(taskJson, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BaseUrl}/{model.Id}", content);
+            var response = await client.PutAsync(BaseUrl, content);
         }
 
         public async Task Delete(Guid id)

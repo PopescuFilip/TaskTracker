@@ -45,6 +45,7 @@ namespace TaskAPI.Services
             using var context = _dBContextFactory.CreateDbContext();
             var entityToDelete = Get(id);
             context.Set<T>().Remove(entityToDelete);
+            context.SaveChanges();
             return true;
         }
     }
