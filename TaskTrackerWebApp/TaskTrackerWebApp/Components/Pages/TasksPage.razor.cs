@@ -25,6 +25,7 @@ namespace TaskTrackerWebApp.Components.Pages
         private async void HandleTaskCreated()
         {
             Tasks = await TaskService.GetAll();
+            await taskGrid.Reload();
             CloseCreateTaskModal();
         }
 

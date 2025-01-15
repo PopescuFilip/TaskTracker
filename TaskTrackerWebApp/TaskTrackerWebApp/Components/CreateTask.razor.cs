@@ -9,6 +9,9 @@ namespace TaskTrackerWebApp.Components
         [Inject]
         ITaskService TaskService { get; set; }
 
+        [Inject]
+        IUserService UserService { get; set; }
+
         [Parameter]
         public EventCallback OnTaskCreated { get; set; }
 
@@ -16,10 +19,27 @@ namespace TaskTrackerWebApp.Components
         public EventCallback<bool> OnVisibilityChanged { get; set; }
 
         [Parameter]
-        public bool CreateTaskModalIsVisible { get; set; }
-        public bool showErrorMessage;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (value)
+                    SetUsers();
+                _isVisible = value;
+            }
+        }
+
+        private bool _isVisible;
+        private bool showErrorMessage;
+        private List<string> users;
 
         private TaskModel TaskBeingCreated { get; set; } = new TaskModel();
+
+        protected override async Task OnInitializedAsync()
+        {
+            await SetUsers();
+        }
 
         private async Task HandleSubmit()
         {
@@ -34,8 +54,14 @@ namespace TaskTrackerWebApp.Components
 
         private void CloseCreateTaskModal()
         {
-            CreateTaskModalIsVisible = false;
+            IsVisible = false;
             OnVisibilityChanged.InvokeAsync(false);
+        }
+
+        private async Task SetUsers()
+        {
+            users = (await UserService.GetAll()).Select(u => u.Name).ToList();
+            StateHasChanged();
         }
     }
 }

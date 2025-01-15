@@ -1,6 +1,6 @@
 ﻿
 
-@if (CreateTaskModalIsVisible)
+@if (IsVisible)
 {
     <div class="modal-backdrop fade show"></div>
 
@@ -27,7 +27,8 @@
 
                             <div class="form-group">
                                 <label for="assignedTo">Assigned To</label>
-                                <input type="text" id="assignedTo" class="form-control" @bind="TaskBeingCreated.AssignedTo" placeholder="Enter assignee name" />
+                                <br/>
+                                <RadzenDropDown TValue="string" @bind-Value="@TaskBeingCreated.AssignedTo" Data="@users" />
                             </div>
 
                             <button type="submit" class="btn btn-primary">Create Task</button>
