@@ -47,7 +47,7 @@ else
 					@context.AssignedTo
 				</Template>
 				<EditTemplate>
-					<RadzenTextBox @bind-Value="@context.AssignedTo" />
+					<RadzenDropDown TValue="string" @bind-Value="@context.AssignedTo" Data="@users" />
 				</EditTemplate>
 			</RadzenDataGridColumn>
 			<RadzenDataGridColumn TItem="TaskModel" Property="Status" Title="Status">

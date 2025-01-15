@@ -10,16 +10,23 @@ namespace TaskTrackerWebApp.Components.Pages
         [Inject]
         ITaskService TaskService { get; set; }
 
+        [Inject]
+        IUserService UserService { get; set; }
+
         private bool IsCreateTaskModalVisible { get; set; }
 
         private List<TaskModel>? Tasks { get; set; }
 
         private RadzenDataGrid<TaskModel> taskGrid;
         private List<string> statusValues;
+        private List<string> users;
+
         protected override async Task OnInitializedAsync()
         {
             Tasks = await TaskService.GetAll();
+
             statusValues = [TaskModel.ToDo, TaskModel.InProgress, TaskModel.Completed];
+            users = (await UserService.GetAll()).Select(u => u.Name).ToList();
         }
 
         private async void HandleTaskCreated()
