@@ -1,6 +1,6 @@
 ﻿using Microsoft.Playwright.MSTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text.RegularExpressions;
+using System.IO;
 using System.Threading.Tasks;
 using TaskTrackerTests;
 
@@ -15,16 +15,21 @@ public class LoginTest : PageTest
         await Page.GotoAsync($"{Constants.Root}/{Constants.Login}");
     }
 
-
     [TestMethod]
     public async Task LoginWithValidCredentials()
     {
-        await Page.FillAsync("input[placeholder='Username']", "eu");
+        var user = "Filip";
+        await Page.FillAsync("input[placeholder='Username']", user);
         await Page.FillAsync("input[placeholder='Password']", "pass");
 
         await Page.ClickAsync("button[type='submit']");
 
-        await Expect(Page).ToHaveURLAsync(new Regex($"{Constants.Root}"));
+        await Expect(Page).ToHaveURLAsync($"{Constants.Root}/");
+        await Expect(Page.Locator("h1")).ToHaveTextAsync("Hello, world!");
+        await Expect(Page.Locator("span:has-text('You are logged in as')")).ToBeVisibleAsync();
+        await Expect(Page.Locator("b")).ToHaveTextAsync(user);
+
+        await Page.Context.StorageStateAsync(new() { Path = "./loginAuth.json " });
     }
 
     [TestMethod]

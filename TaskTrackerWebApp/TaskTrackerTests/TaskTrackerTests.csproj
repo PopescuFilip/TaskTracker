@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="ExampleTest.cs" />
+    <Compile Include="LoginWithOneTimeTest.cs" />
     <Compile Include="LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
