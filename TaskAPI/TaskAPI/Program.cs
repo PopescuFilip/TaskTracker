@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using System.Reflection;
 using TaskAPI.Db;
 using TaskAPI.Services;
