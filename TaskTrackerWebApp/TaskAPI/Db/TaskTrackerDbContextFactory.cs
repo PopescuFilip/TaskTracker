@@ -1,22 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace TaskAPI.Db
 {
     public class TaskTrackerDbContextFactory : IDbContextFactory<TaskTrackerDbContext>
     {
-        private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=TaskTrackerDb;Trusted_Connection=True;";
-
         public TaskTrackerDbContext CreateDbContext()
         {
-            //var dbHost = "localhost";
-            //var dbName = "dms_user";
-            //var dbPass = "m153cur3p@55";
-            //var connString = $"Data Source={dbHost};Initial Catalog={dbName};User=sa;Password={dbPass}";
+            var dbHost = "localhost";
+            var dbName = "dms_user";
+            var dbPass = "m153cur3p@55";
+            var connString = $"Data Source={dbHost};Initial Catalog={dbName};User=sa;Password={dbPass};TrustServerCertificate=True;";
 
-            var options = new DbContextOptionsBuilder<TaskTrackerDbContext>();
-            options.UseSqlServer(CONNECTION_STRING);
+            var options = new DbContextOptionsBuilder<TaskTrackerDbContext>()
+                .UseSqlServer(connString)
+                .Options;
 
-            return new TaskTrackerDbContext(options.Options);
+            return new TaskTrackerDbContext(options);
         }
     }
 }
