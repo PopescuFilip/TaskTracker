@@ -9,16 +9,9 @@ namespace TaskAPI.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class TaskController : ControllerBase
+    public class TaskController(ITaskService taskCollectionService) : ControllerBase
     {
-        private readonly ITaskService _taskCollectionService;
-        private readonly IUserService _userService;
-
-        public TaskController(ITaskService taskCollectionService, IUserService userService)
-        {
-            _taskCollectionService = taskCollectionService ?? throw new ArgumentNullException(nameof(TaskService));
-            _userService = userService ?? throw new ArgumentNullException(nameof(UserService));
-        }
+        private readonly ITaskService _taskCollectionService = taskCollectionService ?? throw new ArgumentNullException(nameof(TaskService));
 
         /// <summary>
         /// returns all tasks

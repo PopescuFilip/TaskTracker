@@ -1,16 +1,12 @@
-﻿using TaskAPI.Db;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskAPI.Db;
 using TaskAPI.Models;
 
 namespace TaskAPI.Services
 {
-    public class EntityService<T> : ICollectionService<T> where T : Entity
+    public class EntityService<T>(IDbContextFactory<TaskTrackerDbContext> dBContextFactory) : ICollectionService<T> where T : Entity
     {
-        protected readonly TaskTrackerDbContextFactory _dBContextFactory;
-
-        public EntityService(TaskTrackerDbContextFactory dBContextFactory)
-        {
-            _dBContextFactory = dBContextFactory;
-        }
+        protected readonly IDbContextFactory<TaskTrackerDbContext> _dBContextFactory = dBContextFactory;
 
         public virtual List<T> GetAll()
         {

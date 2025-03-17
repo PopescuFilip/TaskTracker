@@ -9,14 +9,9 @@ namespace TaskAPI.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController(IUserService userService) : ControllerBase
     {
-        private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
-        {
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-        }
+        private readonly IUserService _userService = userService ?? throw new ArgumentNullException(nameof(userService));
 
         /// <summary>
         /// Returns all users
@@ -99,7 +94,7 @@ namespace TaskAPI.Controllers
                 return BadRequest("Username and password are required.");
             }
 
-            var userId = _userService.Check(username, password, HttpContext);
+            var userId = _userService.Check(username, password);
 
             if (string.IsNullOrEmpty(userId))
             {

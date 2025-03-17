@@ -1,15 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using TaskAPI.Db;
 using TaskAPI.Models;
 
 namespace TaskAPI.Services
 {
-    public class TaskService : EntityService<TaskModel>, ITaskService
+    public class TaskService(IDbContextFactory<TaskTrackerDbContext> dbContextFactory) : EntityService<TaskModel>(dbContextFactory), ITaskService
     {
-        public TaskService(TaskTrackerDbContextFactory dbContextFactory) :
-            base(dbContextFactory)
-        {}
-
         public List<TaskModel> GetTasksByStatus(string status)
         {
             using var context = _dBContextFactory.CreateDbContext();

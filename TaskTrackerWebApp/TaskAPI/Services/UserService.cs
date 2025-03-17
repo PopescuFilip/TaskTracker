@@ -1,15 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using TaskAPI.Db;
 using TaskAPI.Models;
 
 namespace TaskAPI.Services
 {
-    public class UserService : EntityService<User>, IUserService
+    public class UserService(IDbContextFactory<TaskTrackerDbContext> dbContextFactory) : EntityService<User>(dbContextFactory), IUserService
     {
-        public UserService(TaskTrackerDbContextFactory dbContextFactory) :
-            base(dbContextFactory)
-        {}
-
         public override bool Create(User model)
         {
             using var context = _dBContextFactory.CreateDbContext();
@@ -19,16 +16,14 @@ namespace TaskAPI.Services
             return base.Create(model);
         }
 
-        public string Check(string username, string password, HttpContext context)
+        public string Check(string username, string password)
         {
             using var dbContext = _dBContextFactory.CreateDbContext();
             var user = dbContext.Set<User>().FirstOrDefault(u => u.Name == username && u.Password == password);
 
             if (user != null)
-            {
-                context.Session.SetString("id", user.Id.ToString());
                 return user.Id.ToString();
-            }
+
             return string.Empty;
         }
 

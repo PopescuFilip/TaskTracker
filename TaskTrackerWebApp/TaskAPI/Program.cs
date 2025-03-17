@@ -17,23 +17,10 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddSingleton<TaskTrackerDbContextFactory>();
-
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ITaskService, TaskService>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "CorsPolicy",
-                              policy =>
-                              {
-                                  policy.WithOrigins("http://localhost:5273")
-                                  .AllowAnyHeader()
-                                  .AllowAnyMethod()
-                                  .AllowCredentials();
-                              });
-});
-
+builder.Services.AddDbContextFactory<TaskTrackerDbContext, TaskTrackerDbContextFactory>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -47,10 +34,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-app.UseCors("CorsPolicy");
-
 app.UseRouting();
-
 
 if (app.Environment.IsDevelopment())
 {

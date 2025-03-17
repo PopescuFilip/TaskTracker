@@ -5,7 +5,7 @@ namespace TaskAPI.Services
 {
     public interface IUserService : ICollectionService<User>
     {
-        string Check(string username, string password, HttpContext context);
+        string Check(string username, string password);
         bool Check(string id);
     }
 }
