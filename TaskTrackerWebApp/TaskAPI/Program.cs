@@ -18,7 +18,6 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ITaskService, TaskService>();
 
 builder.Services.AddDbContextFactory<TaskTrackerDbContext, TaskTrackerDbContextFactory>();
