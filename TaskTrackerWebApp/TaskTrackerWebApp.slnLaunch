@@ -11,6 +11,11 @@
         "Path": "TaskTrackerWebApp\\TaskTrackerWebApp.csproj",
         "Action": "Start",
         "DebugTarget": "http"
+      },
+      {
+        "Path": "UserAPI\\UserAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
       }
     ]
   }
