@@ -20,7 +20,7 @@ namespace TaskAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
-            List<TaskModel> tasks = _taskCollectionService.GetAll();
+            var tasks = _taskCollectionService.GetAll();
             return Ok(tasks);
         }
 

@@ -18,11 +18,5 @@ namespace UserAPI.Db
             if (!dbCreator.HasTables())
                 dbCreator.CreateTables();
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<User>();
-        }
     }
 }

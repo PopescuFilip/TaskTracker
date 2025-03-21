@@ -6,7 +6,7 @@ namespace TaskTrackerWebApp.BusinessLogic
 {
     public class UserService : IUserService
     {
-        private const string BaseUrl = "http://localhost:5126/User";
+        private const string BaseUrl = "http://localhost:5063/User";
         private readonly JsonSerializerOptions _serializerOptions;
 
         public UserService()

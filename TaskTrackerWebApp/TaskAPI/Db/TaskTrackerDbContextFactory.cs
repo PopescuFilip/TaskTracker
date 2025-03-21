@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace TaskAPI.Db
 {
@@ -8,7 +7,7 @@ namespace TaskAPI.Db
         public TaskTrackerDbContext CreateDbContext()
         {
             var dbHost = "localhost";
-            var dbName = "dms_user";
+            var dbName = "dms_task";
             var dbPass = "m153cur3p@55";
             var connString = $"Data Source={dbHost};Initial Catalog={dbName};User=sa;Password={dbPass};TrustServerCertificate=True;";
 
