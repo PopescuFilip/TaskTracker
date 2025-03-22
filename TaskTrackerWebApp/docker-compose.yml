@@ -1,5 +1,8 @@
+version: '3.9'
+
 networks:
     backend:
+    frontend:
 
 services:
   userdb:
@@ -21,9 +24,22 @@ services:
       dockerfile: UserAPI/Dockerfile
     networks:
       - backend
+      - frontend
     ports:
-      - 8002:80
+      - 8002:8080
     environment:
       - DB_HOST=userdb
       - DB_NAME=dms_user
       - DB_SA_PASSWORD=m153cur3p@55
+
+  tasktrackerwebapp:
+    image: ${DOCKER_REGISTRY-}tasktrackerwebapp
+    build:
+      context: .
+      dockerfile: TaskTrackerWebApp/Dockerfile
+    networks:
+      - frontend
+    ports:
+      - 8003:80
+    environment:
+      - USER_API_HOST=userapi:8080

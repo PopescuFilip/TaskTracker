@@ -6,11 +6,13 @@ namespace TaskTrackerWebApp.BusinessLogic
 {
     public class UserService : IUserService
     {
-        private const string BaseUrl = "http://localhost:5063/User";
+        private readonly string _baseUrl;
         private readonly JsonSerializerOptions _serializerOptions;
 
         public UserService()
         {
+            var userApiHost = Environment.GetEnvironmentVariable("USER_API_HOST") ?? "localhost:5063";
+            _baseUrl = $"http://{userApiHost}/User";
             _serializerOptions = new()
             {
                 PropertyNameCaseInsensitive = true
@@ -20,7 +22,7 @@ namespace TaskTrackerWebApp.BusinessLogic
         public async Task<List<User>> GetAll()
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync(BaseUrl);
+            var response = await client.GetAsync(_baseUrl);
             var responseString = await response.Content.ReadAsStringAsync();
             var users = JsonSerializer.Deserialize<List<User>>(responseString, _serializerOptions);
             return users ?? [];
@@ -29,7 +31,7 @@ namespace TaskTrackerWebApp.BusinessLogic
         public async Task<User> Get(Guid id)
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync($"{BaseUrl}/{id}");
+            var response = await client.GetAsync($"{_baseUrl}/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -45,7 +47,7 @@ namespace TaskTrackerWebApp.BusinessLogic
             var userJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(userJson, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync(BaseUrl, content);
+            var response = await client.PostAsync(_baseUrl, content);
 
             return response.IsSuccessStatusCode;
         }
@@ -56,13 +58,13 @@ namespace TaskTrackerWebApp.BusinessLogic
             var userJson = JsonSerializer.Serialize(model, _serializerOptions);
             var content = new StringContent(userJson, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"{BaseUrl}/{id}", content);
+            var response = await client.PutAsync($"{_baseUrl}/{id}", content);
         }
 
         public async Task Delete(Guid id)
         {
             using var client = new HttpClient();
-            var response = await client.DeleteAsync($"{BaseUrl}/{id}");
+            var response = await client.DeleteAsync($"{_baseUrl}/{id}");
         }
 
         public async Task<string> Check(string username, string password)
@@ -80,7 +82,7 @@ namespace TaskTrackerWebApp.BusinessLogic
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await client.PostAsync($"{BaseUrl}/login", content);
+            var response = await client.PostAsync($"{_baseUrl}/login", content);
 
             return await response.Content.ReadAsStringAsync();
         }

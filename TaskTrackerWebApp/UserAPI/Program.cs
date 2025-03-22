@@ -21,6 +21,10 @@ builder.Services.AddSingleton<IUserService, UserService>();
 
 builder.Services.AddDbContextFactory<UserTrakerDbContext, UserTrakerDbContextFactory>();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8080);
+});
 
 
 var app = builder.Build();
@@ -32,11 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
-
-
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
