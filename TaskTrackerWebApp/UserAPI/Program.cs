@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSingleton<IUserService, UserService>();
 
-builder.Services.AddDbContextFactory<UserTrakerDbContext, UserTrakerDbContextFactory>();
+builder.Services.AddDbContextFactory<UserDbContext, UserDbContextFactory>();
 
 if (!IsRunningOnLocalEnvironment())
 {

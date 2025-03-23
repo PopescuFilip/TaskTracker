@@ -4,7 +4,7 @@ using UserAPI.Models;
 
 namespace UserAPI.Services
 {
-    public class UserService(IDbContextFactory<UserTrakerDbContext> dbContextFactory) : EntityService<User>(dbContextFactory), IUserService
+    public class UserService(IDbContextFactory<UserDbContext> dbContextFactory) : EntityService<User>(dbContextFactory), IUserService
     {
         public override bool Create(User model)
         {

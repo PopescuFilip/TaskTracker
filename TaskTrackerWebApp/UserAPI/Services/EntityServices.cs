@@ -4,9 +4,9 @@ using UserAPI.Models;
 
 namespace UserAPI.Services
 {
-    public class EntityService<T>(IDbContextFactory<UserTrakerDbContext> dBContextFactory) : ICollectionService<T> where T : Entity
+    public class EntityService<T>(IDbContextFactory<UserDbContext> dBContextFactory) : ICollectionService<T> where T : Entity
     {
-        protected readonly IDbContextFactory<UserTrakerDbContext> _dBContextFactory = dBContextFactory;
+        protected readonly IDbContextFactory<UserDbContext> _dBContextFactory = dBContextFactory;
 
         public virtual List<T> GetAll()
         {

@@ -5,11 +5,11 @@ using UserAPI.Models;
 
 namespace UserAPI.Db
 {
-    public class UserTrakerDbContext : DbContext
+    public class UserDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
-        public UserTrakerDbContext(DbContextOptions options) : base(options)
+        public UserDbContext(DbContextOptions options) : base(options)
         {
             var dbCreator = (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator) ?? throw new NullReferenceException("No RelationalDatabaseCreator provided");
 
