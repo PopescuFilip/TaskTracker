@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 using TaskAPI.Db;
 using TaskAPI.Services;
@@ -32,6 +31,14 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(3);
 });
 
+if (!IsRunningOnLocalEnvironment())
+{
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(8082);
+    });
+}
+
 var app = builder.Build();
 
 app.UseRouting();
@@ -42,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseSession();
 app.UseAuthorization();
@@ -51,3 +58,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static bool IsRunningOnLocalEnvironment() => Environment.GetEnvironmentVariable("DB_HOST") == null;

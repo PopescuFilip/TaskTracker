@@ -1,7 +1,8 @@
 version: '3.9'
 
 networks:
-    backend:
+    backend-user:
+    backend-task:
     frontend:
 
 services:
@@ -12,7 +13,7 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=m153cur3p@55
     networks:
-      - backend
+      - backend-user
     ports:
       - 8001:1433
 
@@ -23,10 +24,37 @@ services:
       context: .
       dockerfile: UserAPI/Dockerfile
     networks:
-      - backend
+      - backend-user
       - frontend
     ports:
       - 8002:8080
+    environment:
+      - DB_HOST=userdb
+      - DB_NAME=dms_user
+      - DB_SA_PASSWORD=m153cur3p@55
+
+  taskdb:
+    container_name: task-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=m153cur3p@55
+    networks:
+      - backend-task
+    ports:
+      - 8003:1433
+
+  taskapi:
+    container_name: task-api
+    image: ${DOCKER_REGISTRY-}taskapi
+    build:
+      context: .
+      dockerfile: TaskAPI/Dockerfile
+    networks:
+      - backend-task
+      - frontend
+    ports:
+      - 8004:8082
     environment:
       - DB_HOST=userdb
       - DB_NAME=dms_user
@@ -40,6 +68,8 @@ services:
     networks:
       - frontend
     ports:
-      - 8003:80
+      - 8005:80
     environment:
       - USER_API_HOST=userapi:8080
+      - TASK_API_HOST=taskapi:8082
+
