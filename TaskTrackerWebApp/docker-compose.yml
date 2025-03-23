@@ -56,8 +56,8 @@ services:
     ports:
       - 8004:8082
     environment:
-      - DB_HOST=userdb
-      - DB_NAME=dms_user
+      - DB_HOST=taskdb
+      - DB_NAME=dms_task
       - DB_SA_PASSWORD=m153cur3p@55
 
   tasktrackerwebapp:
