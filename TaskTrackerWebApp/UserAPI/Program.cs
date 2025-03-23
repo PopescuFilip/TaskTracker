@@ -21,11 +21,13 @@ builder.Services.AddSingleton<IUserService, UserService>();
 
 builder.Services.AddDbContextFactory<UserTrakerDbContext, UserTrakerDbContextFactory>();
 
-builder.WebHost.ConfigureKestrel(options =>
+if (!IsRunningOnLocalEnvironment())
 {
-    options.ListenAnyIP(8080);
-});
-
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(8080);
+    });
+}
 
 var app = builder.Build();
 
@@ -43,3 +45,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static bool IsRunningOnLocalEnvironment() => Environment.GetEnvironmentVariable("DB_HOST") == null;
