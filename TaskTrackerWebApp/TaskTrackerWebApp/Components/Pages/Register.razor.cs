@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Components;
 using TaskTrackerWebApp.BusinessLogic;
 using TaskTrackerWebApp.Models;
 using TaskTrackerWebApp.ViewModels;

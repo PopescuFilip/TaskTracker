@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 using TaskTrackerWebApp.BusinessLogic;
-using TaskTrackerWebApp.Models;
 using TaskTrackerWebApp.ViewModels;
 
 namespace TaskTrackerWebApp.Components.Pages
@@ -15,6 +14,7 @@ namespace TaskTrackerWebApp.Components.Pages
 
         [Inject]
         public IUserService UserService { get; set; }
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
