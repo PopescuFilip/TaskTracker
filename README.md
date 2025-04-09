@@ -16,7 +16,7 @@ As a user, I want to create, manage, and track tasks so that I can stay organize
 - **Categorization:** Organize tasks by categories or tags for better clarity.
 - **Search and Filter:** Quickly locate tasks with advanced search and filtering options.
 
-## Architectural diagram: [here](https://drive.google.com/file/d/1_4MErK41QH_qWnBYxb-S_zJVYkmbc33L/view?usp=sharing)
+## Architectural diagram: [here]([https://drive.google.com/file/d/1_4MErK41QH_qWnBYxb-S_zJVYkmbc33L/view?usp=sharing](https://drive.google.com/file/d/1fR9L16tpFOs6_dfXkrQuetUvA8bxNYyI/view?usp=sharing))
 
 ## Technical Specifications
 - **Backend:** Built with ASP.NET WebAPI.
