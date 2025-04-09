@@ -23,6 +23,7 @@ As a user, I want to create, manage, and track tasks so that I can stay organize
 - **Database:** Utilizes Entity Framework Core with SQL Server.
 - **Frontend:** Developed using Blazor for a seamless and responsive user experience.
 
-## Deploying backend
+## Running application
 
-Before running the API for the first time, to create the database, it is necessary to run the "update-database" command from Package Manager Console.
+**Locally**(requires SQL Server): Select "LocalStart" launch profile
+**With Docker**(requires Docker): Select "Single startup project" and "docker-compose"
