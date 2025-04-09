@@ -25,5 +25,5 @@ As a user, I want to create, manage, and track tasks so that I can stay organize
 
 ## Running application
 
-**Locally**(requires SQL Server): Select "LocalStart" launch profile
-**With Docker**(requires Docker): Select "Single startup project" and "docker-compose"
+- **Locally**(requires SQL Server): Select "LocalStart" launch profile
+- **With Docker**(requires Docker): Select "Single startup project" and "docker-compose"
